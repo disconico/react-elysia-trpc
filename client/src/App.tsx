@@ -7,6 +7,8 @@ const App = () => {
 
   const { data, isLoading, refetch } = api.user.getUsers.useQuery();
 
+  if (data) console.log(data);
+
   const mutation = api.user.createUser.useMutation({
     onSuccess: () => refetch(),
   });
