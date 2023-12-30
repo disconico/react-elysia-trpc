@@ -8,7 +8,7 @@ import { createContext } from "./context";
 const app = new Elysia()
   .use(swagger())
   .use(cors())
-  .get("/", () => "Hello Elysia")
+  .get("/", () => console.log(process.env.SERVER_URI))
   .use(trpc(appRouter, { createContext, endpoint: "/trpc" }))
   .listen(3000);
 
