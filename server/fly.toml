@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for server-elysia-api on 2023-12-30T15:55:23+01:00
+# fly.toml app configuration file generated for server-elysia-api on 2023-12-30T16:05:00+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -9,7 +9,7 @@ primary_region = "cdg"
 [build]
 
 [http_service]
-  internal_port = 8080
+  internal_port = 3000
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
