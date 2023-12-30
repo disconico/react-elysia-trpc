@@ -12,6 +12,7 @@
     "@elysiajs/swagger": "^0.8.0",
     "@elysiajs/trpc": "^0.8.0",
     "@trpc/server": "^10.45.0",
+    "dotenv": "^16.3.1",
     "elysia": "latest",
     "zod": "^3.22.4"
   },
