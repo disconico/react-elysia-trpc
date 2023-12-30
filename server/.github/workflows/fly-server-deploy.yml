@@ -1,0 +1,19 @@
+name: Fly Server Deploy
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'server/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Fly.io
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy to Fly.io
+        run: flyctl deploy --remote-only --config server/fly.toml
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_SERVER_TOKEN }}
