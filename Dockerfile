@@ -1,0 +1,47 @@
+# Dockerfile in the project root
+
+# Step 1: Install server dependencies with Bun
+FROM oven/bun as server-deps
+WORKDIR /server
+COPY server/package.json .
+COPY server/bun.lockb .
+RUN bun install
+
+# Step 2: Build the React application
+FROM node:latest as build
+
+# Set the working directory for the client app
+WORKDIR /app/client
+
+# Copy the root tsconfig.json file (if it's used by the client)
+COPY tsconfig.json /app/tsconfig.json
+
+# Copy the server directory (if needed by the client for types or modules)
+COPY server/ /app/server/
+
+# Install server dependencies
+COPY --from=server-deps /server/node_modules /app/server/node_modules
+
+# Copy the client's TypeScript and package configurations
+COPY client/tsconfig.json .
+COPY client/tsconfig.node.json .
+COPY client/package.json .
+COPY client/package-lock.json .
+
+# Install client dependencies
+RUN npm install
+
+# Copy the rest of the client app
+COPY client/src ./src
+COPY client/public ./public
+COPY client/vite.config.ts .
+COPY client/index.html .
+
+# Build the client application
+RUN npm run build
+
+# Step 3: Serve the app using Nginx
+FROM nginx:alpine
+COPY --from=build /app/client/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
