@@ -2,12 +2,14 @@ import { Elysia } from "elysia";
 import { trpc } from "@elysiajs/trpc";
 import { cors } from "@elysiajs/cors";
 import { swagger } from "@elysiajs/swagger";
+import { helmet } from "elysia-helmet";
 import { appRouter } from "./router";
 import { createContext } from "./context";
 
 const app = new Elysia()
   .use(swagger())
   .use(cors())
+  .use(helmet())
   .get("/", () => "Hello Elysia")
   .use(trpc(appRouter, { createContext, endpoint: "/trpc" }))
   .listen(3000);
