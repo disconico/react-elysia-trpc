@@ -9,7 +9,7 @@ COPY server/prisma ./prisma
 RUN bun install
 
 # Generate Prisma client
-RUN bunx prisma generate
+RUN npx prisma generate
 
 # Step 2: Build the React application
 FROM node:latest as build
