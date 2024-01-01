@@ -26,7 +26,7 @@ COPY server/ /app/server/
 # Install server dependencies along with Prisma client
 COPY --from=server-deps /server/node_modules /app/server/node_modules
 # Specifically copy the .prisma/client directory
-COPY --from=server-deps /server/node_modules/.prisma/client /app/server/node_modules/.prisma/client
+COPY --from=server-deps /server/node_modules/@prisma/client /app/server/node_modules/.prisma/client
 
 # Copy the client's TypeScript and package configurations
 COPY client/tsconfig.json .
