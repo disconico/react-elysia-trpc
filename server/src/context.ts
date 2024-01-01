@@ -14,14 +14,15 @@ export const createContext = async (opts: FetchCreateContextFnOptions): Promise<
   // Example: const user = await authenticateUser(opts.req);
 
   // Return the context object
-    console.log("Creating context with options:", opts);
+  console.log("Creating context with options:", opts);
 
-    // Context creation logic
+  // Context creation logic
 
-    const context = {
-    };
+  const context = {
+    user: "nico",
+  };
 
-    console.log("Context created:", context);
+  console.log("Context created:", context);
 
-    return context;
+  return context;
 };

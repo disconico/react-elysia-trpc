@@ -3,33 +3,39 @@ import * as React from "react";
 import { api } from "./trpc";
 
 const App = () => {
-  const [name, setName] = React.useState("");
+  // const [name, setName] = React.useState("");
 
-  const { data, isLoading, refetch } = api.user.getUsers.useQuery();
+  // const { data, isLoading, refetch } = api.user.getUsers.useQuery();
 
-  if (data) console.log(data);
+  const { data: posts } = api.post.getPosts.useQuery()
+  if(posts) console.log(posts);
 
-  const mutation = api.user.createUser.useMutation({
-    onSuccess: () => refetch(),
-  });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
+  // if (data) console.log(data);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    setName("");
-    mutation.mutate({ name });
-    event.preventDefault();
-  };
+  // const mutation = api.user.createUser.useMutation({
+  //   onSuccess: () => refetch(),
+  // });
 
-  if (isLoading) return <span>Loading ...</span>;
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setName(event.target.value);
+  // };
+
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   setName("");
+  //   mutation.mutate({ name });
+  //   event.preventDefault();
+  // };
+
+  // if (isLoading) return <span>Loading ...</span>;
 
   return (
     <div>
-      <ul>
+      {/* <ul>
         {(data ?? []).map((user) => (
-          <li key={user.id}>{user.name} - { user.id}</li>
+          <li key={user.id}>
+            {user.name} - {user.id}
+          </li>
         ))}
       </ul>
 
@@ -38,7 +44,14 @@ const App = () => {
         <input id="name" type="text" value={name} onChange={handleChange} />
 
         <button type="submit">Create</button>
-      </form>
+      </form> */}
+      <ul>
+        {(posts ?? []).map((post) => (
+          <li key={post.id}>
+            {post.text}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

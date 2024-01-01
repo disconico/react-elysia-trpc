@@ -7,6 +7,9 @@
     "start": "NODE_ENV=production bun src/index.ts",
     "test": "bun test"
   },
+  "prisma": {
+      "seed": "bun prisma/seed.ts"
+    },
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
     "@elysiajs/swagger": "^0.8.0",
@@ -15,10 +18,12 @@
     "dotenv": "^16.3.1",
     "elysia": "latest",
     "elysia-helmet": "^1.0.1",
+    "postgres": "^3.4.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "prisma": "^5.7.1"
   },
   "module": "src/index.js"
 }
