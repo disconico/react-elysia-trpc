@@ -1,4 +1,4 @@
-import { z } from "zod";
+// import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 import { db } from "../index";
 
@@ -24,7 +24,7 @@ export const postRouter = router({
   //     return post;
   //   }),
 
-  getPosts: publicProcedure.query(async ({ ctx }) => {
+  getPosts: publicProcedure.query(async ({ }) => {
     const posts = await db.post.findMany({
       take: 100,
       orderBy: [{ id: "desc" }],
