@@ -1,5 +1,3 @@
-# Dockerfile in the project root
-
 # Step 1: Install server dependencies with Bun
 FROM oven/bun as server-deps
 WORKDIR /server
@@ -18,13 +16,13 @@ WORKDIR /app/client
 # Copy the root tsconfig.json file (if it's used by the client)
 COPY tsconfig.json /app/tsconfig.json
 
-# Copy the server directory (if needed by the client for types or modules)
 COPY server/ /app/server/
 
-# Install server dependencies along with Prisma client
+# Install Prisma client for the server part (if needed by the client)
 COPY --from=server-deps /server/node_modules /app/server/node_modules
-# # Specifically copy the .prisma/client directory
-# COPY --from=server-deps /server/node_modules/@prisma/client /app/server/node_modules/@prisma/client
+
+# Install global Prisma for the build stage if needed
+RUN npm install -g prisma
 
 # Copy the client's TypeScript and package configurations
 COPY client/tsconfig.json .
