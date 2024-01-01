@@ -7,8 +7,6 @@ COPY server/package.json .
 COPY server/bun.lockb .
 COPY server/prisma ./prisma
 RUN bun install
-
-# Generate Prisma client
 RUN bunx prisma generate
 
 # Step 2: Build the React application
