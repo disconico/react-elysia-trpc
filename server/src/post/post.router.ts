@@ -24,11 +24,8 @@ export const postRouter = router({
   //     return post;
   //   }),
 
-  // getPosts: publicProcedure.query(async ({ }) => {
-  //   const posts = await db.post.findMany({
-  //     take: 100,
-  //     orderBy: [{ id: "desc" }],
-  //   });
-  //   return posts;
-  // }),
+  getPosts: publicProcedure.query(async ({ ctx }) => {
+    const posts = await ctx.db.query.posts.findMany({});
+    return posts;
+  }),
 });
