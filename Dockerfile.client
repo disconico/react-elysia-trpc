@@ -5,6 +5,7 @@ FROM oven/bun as server-deps
 WORKDIR /server
 COPY server/package.json .
 COPY server/bun.lockb .
+COPY server/prisma ./prisma
 RUN bun install
 
 # Generate Prisma client
