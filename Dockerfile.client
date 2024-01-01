@@ -9,7 +9,7 @@ COPY server/prisma ./prisma
 RUN bun install
 
 # Generate Prisma client
-RUN npx prisma generate
+RUN bunx prisma generate
 
 # Step 2: Build the React application
 FROM node:latest as build
@@ -25,8 +25,8 @@ COPY server/ /app/server/
 
 # Install server dependencies along with Prisma client
 COPY --from=server-deps /server/node_modules /app/server/node_modules
-# Specifically copy the .prisma/client directory
-COPY --from=server-deps /server/node_modules/@prisma/client /app/server/node_modules/@prisma/client
+# # Specifically copy the .prisma/client directory
+# COPY --from=server-deps /server/node_modules/@prisma/client /app/server/node_modules/@prisma/client
 
 # Copy the client's TypeScript and package configurations
 COPY client/tsconfig.json .
