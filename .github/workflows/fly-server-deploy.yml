@@ -11,25 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-
-      - name: Install dependencies with Bun
-        run: |
-          cd server
-          bun install
-
-      - name: Apply all pending migrations to the database
-        run: |
-          cd server
-          bunx prisma migrate deploy
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
       - name: Set up Fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master
-
       - name: Deploy to Fly.io
         run: |
           cd server
