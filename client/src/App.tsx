@@ -47,7 +47,7 @@ const App = () => {
       </form>
       {posts && <ul>
         <li key={posts.id}>
-          {posts.author} - {posts.message} - {posts.createdAt}
+          {posts.author} - {posts.message} - {posts.createdAt.toLocaleDateString()}
         </li>
       </ul>}
     </div>

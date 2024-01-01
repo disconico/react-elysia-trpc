@@ -1,6 +1,7 @@
 import { initTRPC } from "@trpc/server";
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 import { db } from "./db/db";
+import superjson from "superjson";
 
 // Define the context structure
 export type Context = {
@@ -31,7 +32,9 @@ export const createContext = async (opts: FetchCreateContextFnOptions): Promise<
   return context;
 };
 
-const t = initTRPC.context<Awaited<ReturnType<typeof createContext>>>().create();
+const t = initTRPC.context<Awaited<ReturnType<typeof createContext>>>().create({
+  transformer: superjson,
+});
 
 export const middleware = t.middleware;
 export const router = t.router;
