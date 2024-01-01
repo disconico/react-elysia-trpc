@@ -7,8 +7,8 @@ const App = () => {
 
   const { data, isLoading, refetch } = api.user.getUsers.useQuery();
 
-  // const { data: posts } = api.post.getPosts.useQuery()
-  // if(posts) console.log(posts);
+  const { data: posts } = api.post.getPosts.useQuery()
+  if(posts) console.log(posts);
 
 
   // if (data) console.log(data);
@@ -45,13 +45,13 @@ const App = () => {
 
         <button type="submit">Create</button>
       </form>
-      {/* <ul>
+      <ul>
         {(posts ?? []).map((post) => (
           <li key={post.id}>
-            {post.text}
+            {post.author} - {post.message} - {post.createdAt}
           </li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };
