@@ -6,6 +6,7 @@ COPY package.json .
 COPY bun.lockb .
 
 RUN bun install
+RUN bunx prisma generate
 
 COPY . .
 
