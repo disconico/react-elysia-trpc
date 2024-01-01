@@ -22,7 +22,7 @@ COPY server/ /app/server/
 COPY --from=server-deps /server/node_modules /app/server/node_modules
 
 # Install global Prisma for the build stage if needed
-RUN npm install -g prisma
+RUN bun install -g prisma
 
 # Copy the client's TypeScript and package configurations
 COPY client/tsconfig.json .
