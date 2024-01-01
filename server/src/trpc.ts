@@ -1,11 +1,13 @@
 import { initTRPC } from "@trpc/server";
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
+import { db } from "./db/db";
 
 // Define the context structure
 export type Context = {
   // Add any specific context properties here
   // For example, user information, authentication tokens, etc.
   // Example: user?: User;
+  db: typeof db;
 };
 
 // Create context function
@@ -21,13 +23,13 @@ export const createContext = async (opts: FetchCreateContextFnOptions): Promise<
 
   const context = {
     user: "nico",
+    db,
   };
 
   console.log("Context created:", context);
 
   return context;
 };
-
 
 const t = initTRPC.context<Awaited<ReturnType<typeof createContext>>>().create();
 

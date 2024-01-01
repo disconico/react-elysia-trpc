@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1704123487010,
+      "tag": "0000_common_manta",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1704123515843,
+      "tag": "0001_unique_brother_voodoo",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1704123553371,
+      "tag": "0002_sharp_wendell_vaughn",
+      "breakpoints": true
+    }
+  ]
+}

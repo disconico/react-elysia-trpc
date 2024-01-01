@@ -1,7 +1,8 @@
 import { router, publicProcedure } from "../trpc";
 
 export const greetRouter = router({
-  hello: publicProcedure.query(() => {
+  hello: publicProcedure.query(({ ctx }) => {
+    console.log(ctx.db);
     return "hello";
   }),
   bye: publicProcedure.query(() => {
