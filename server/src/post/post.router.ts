@@ -25,7 +25,7 @@ export const postRouter = router({
   //   }),
 
   getPosts: publicProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.db.query.posts.findMany({});
+    const posts = await ctx.db.query.posts.findFirst({});
     return posts;
   }),
 });

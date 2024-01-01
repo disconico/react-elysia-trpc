@@ -45,13 +45,11 @@ const App = () => {
 
         <button type="submit">Create</button>
       </form>
-      <ul>
-        {(posts ?? []).map((post) => (
-          <li key={post.id}>
-            {post.author} - {post.message} - {post.createdAt}
-          </li>
-        ))}
-      </ul>
+      {posts && <ul>
+        <li key={posts.id}>
+          {posts.author} - {posts.message} - {posts.createdAt}
+        </li>
+      </ul>}
     </div>
   );
 };
