@@ -7,7 +7,7 @@ const App = () => {
 
   const { data, isLoading, refetch } = api.user.getUsers.useQuery();
 
-  const { data: posts } = api.post.getPosts.useQuery()
+  const { data: posts } = api.post.getFirstPost.useQuery()
   if(posts) console.log(posts);
 
 

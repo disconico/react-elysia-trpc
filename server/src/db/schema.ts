@@ -1,4 +1,5 @@
 import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const posts = pgTable("posts", {
   id: serial("id").primaryKey(),
@@ -7,3 +8,8 @@ export const posts = pgTable("posts", {
   message: text("message").notNull(),
   author: text("author").notNull(),
 });
+
+// https://orm.drizzle.team/docs/zod
+export const insertPostSchema = createInsertSchema(posts);
+
+export const selectPostSchema = createSelectSchema(posts)

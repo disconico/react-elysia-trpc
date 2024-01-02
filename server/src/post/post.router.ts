@@ -1,31 +1,25 @@
-// import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
-// import { db } from "../index";
+import { insertPostSchema, posts, selectPostSchema } from "../db/schema";
 
 export const postRouter = router({
   hello: publicProcedure.query(() => {
     return "hello";
   }),
 
-  // createPost: publicProcedure
-  //   .input(
-  //     z.object({
-  //       title: z.string().min(1).max(50),
-  //       text: z.string().min(1).max(500),
-  //     }),
-  //   )
-  //   .mutation(async ({ ctx, input }) => {
-  //     const post = await ctx.db.post.create({
-  //       data: input,
-  //     });
+  createPost: publicProcedure
+    .input(insertPostSchema)
+    .mutation(async ({ ctx, input }) => {
+      const post = await ctx.db.insert(posts).values(insertPostSchema.parse(input))
+      return post;
+    }),
 
-  //     console.log(post);
-
-  //     return post;
-  //   }),
+  getFirstPost: publicProcedure.query(async ({ ctx }) => {
+    const post = await ctx.db.query.posts.findFirst({});
+    return selectPostSchema.parse(post);
+  }),
 
   getPosts: publicProcedure.query(async ({ ctx }) => {
-    const posts = await ctx.db.query.posts.findFirst({});
-    return posts;
+    const posts = await ctx.db.query.posts.findMany();
+     return posts.map((post) => selectPostSchema.parse(post));
   }),
 });
