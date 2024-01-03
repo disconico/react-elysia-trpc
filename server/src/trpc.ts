@@ -12,7 +12,7 @@ export type Context = {
 };
 
 // Create context function
-export const createContext = async (opts: FetchCreateContextFnOptions): Promise<Context> => {
+export const createContext = async (_opts: FetchCreateContextFnOptions): Promise<Context> => {
   // Here you can extract information from the opts and construct your context
   // For example, you can authenticate a user and add them to the context
   // Example: const user = await authenticateUser(opts.req);
