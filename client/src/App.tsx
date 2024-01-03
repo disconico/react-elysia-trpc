@@ -7,8 +7,11 @@ const App = () => {
 
   const { data, isLoading, refetch } = api.user.getUsers.useQuery();
 
-  const { data: posts } = api.post.getFirstPost.useQuery()
-  if(posts) console.log(posts);
+  const { data: post } = api.post.getFirstPost.useQuery()
+  if (post) console.log(post);
+  // if (post) {
+  //   const { data: comments} = api.comment.getCommentsFromAPost.useQuery({id: post.id})
+  // }
 
 
   // if (data) console.log(data);
@@ -45,11 +48,13 @@ const App = () => {
 
         <button type="submit">Create</button>
       </form>
-      {posts && <ul>
-        <li key={posts.id}>
-          {posts.author} - {posts.message} - {posts.createdAt.toLocaleDateString()}
-        </li>
-      </ul>}
+      {post && (
+        <ul>
+          <li key={post.id}>
+            {post.author} - {post.message} - {post.createdAt.toLocaleDateString()}
+          </li>
+        </ul>
+      )}
     </div>
   );
 };

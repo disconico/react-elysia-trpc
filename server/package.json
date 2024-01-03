@@ -20,6 +20,7 @@
     "drizzle-zod": "^0.5.1",
     "elysia": "latest",
     "elysia-helmet": "^1.0.1",
+    "pg": "^8.11.3",
     "postgres": "^3.4.3",
     "superjson": "^2.2.1",
     "zod": "^3.22.4"
