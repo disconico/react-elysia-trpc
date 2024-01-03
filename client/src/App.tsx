@@ -7,14 +7,13 @@ const App = () => {
 
   const { data, isLoading, refetch } = api.user.getUsers.useQuery();
 
-  const { data: post } = api.post.getFirstPost.useQuery()
-  if (post) console.log(post);
-  // if (post) {
-  //   const { data: comments} = api.comment.getCommentsFromAPost.useQuery({id: post.id})
-  // }
-
-
-  // if (data) console.log(data);
+  const { data: post } = api.post.getFirstPost.useQuery();
+  const { data: comments } = api.comment.getCommentsFromAPost.useQuery(
+    { id: post?.id as number},
+    {
+      enabled: !!post,
+    },
+  );
 
   const mutation = api.user.createUser.useMutation({
     onSuccess: () => refetch(),
@@ -53,6 +52,15 @@ const App = () => {
           <li key={post.id}>
             {post.author} - {post.message} - {post.createdAt.toLocaleDateString()}
           </li>
+        </ul>
+      )}
+      {comments && (
+        <ul>
+          {comments.map((com) => (
+            <li key={com.id}>
+              {com.id} - {com.message} - {com.createdAt.toLocaleDateString()}
+            </li>
+          ))}
         </ul>
       )}
     </div>

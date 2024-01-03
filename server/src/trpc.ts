@@ -17,17 +17,10 @@ export const createContext = async (opts: FetchCreateContextFnOptions): Promise<
   // For example, you can authenticate a user and add them to the context
   // Example: const user = await authenticateUser(opts.req);
 
-  // Return the context object
-  console.log("Creating context with options:", opts);
-
-  // Context creation logic
-
   const context = {
     user: "nico",
     db,
   };
-
-  console.log("Context created:", context);
 
   return context;
 };
