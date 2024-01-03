@@ -17,7 +17,7 @@ WORKDIR /app/client
 COPY tsconfig.json /app/tsconfig.json
 
 # Copy the server directory (if needed by the client for types or modules)
-# COPY server/ /app/server/
+COPY server/ /app/server/
 
 # Install server dependencies
 COPY --from=server-deps /server/node_modules /app/server/node_modules
