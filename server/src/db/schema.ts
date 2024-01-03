@@ -21,7 +21,7 @@ export const selectPostSchema = createSelectSchema(posts);
 export const comments = pgTable("comments", {
   id: serial("id").primaryKey(),
   postId: integer("postId")
-    .references(() => posts.id)
+    .references(() => posts.id, { onDelete: "cascade" })
     .notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
