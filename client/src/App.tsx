@@ -8,6 +8,8 @@ const App = () => {
   const { data, isLoading, refetch } = api.user.getUsers.useQuery();
 
   const { data: post } = api.post.getFirstPost.useQuery();
+  if (post) console.log(post);
+
   const { data: comments } = api.comment.getCommentsFromAPost.useQuery(
     { id: post?.id as number},
     {

@@ -21,8 +21,20 @@ export const postRouter = router({
   }),
 
   getFirstPost: publicProcedure.query(async ({ ctx }) => {
-    const post = await ctx.db.query.posts.findFirst({});
-    return post;
+    try {
+      const post = await ctx.db.query.posts.findFirst({
+        with: {
+          comments: true,
+        },
+      });
+      return post;
+    } catch (err) {
+      console.error(err);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Failed to fetch post.",
+      });
+    }
   }),
 
   getPosts: publicProcedure.query(async ({ ctx }) => {
