@@ -9,9 +9,15 @@ import { signupHanlder } from "./auth/signup";
 
 const app = new Elysia()
   .use(swagger())
-  .use(cors())
+  .use(
+    cors({
+      origin:
+        process.env.NODE_ENV === "development" ? /http:\/\/localhost:5173/ : /https:\/\/client-react-api\.fly\.dev/,
+    }),
+  )
   .use(helmet())
-  .get("/", () => "Hello Elysia")
+  .get("/", () => "Hello from Elysia!")
+  .get("/ctx", (ctx) => console.log(ctx))
   .post("/auth/signup", signupHanlder)
   .use(trpc(appRouter, { createContext, endpoint: "/trpc" }))
   .listen(3000);
