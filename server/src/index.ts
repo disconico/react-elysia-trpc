@@ -5,12 +5,14 @@ import { swagger } from "@elysiajs/swagger";
 import { helmet } from "elysia-helmet";
 import { appRouter } from "./router";
 import { createContext } from "./trpc";
+import { signupHanlder } from "./auth/signup";
 
 const app = new Elysia()
   .use(swagger())
   .use(cors())
   .use(helmet())
   .get("/", () => "Hello Elysia")
+  .post("/auth/signup", signupHanlder)
   .use(trpc(appRouter, { createContext, endpoint: "/trpc" }))
   .listen(3000);
 
