@@ -11,6 +11,15 @@ export const auth = lucia({
     key: "user_key",
     session: "user_session",
   }),
-  // Check if this type is correct
-  env: process.env.NODE_ENV as Env || "DEV",
+  env: (process.env.NODE_ENV as Env) || "DEV",
+  getUserAttributes(databaseUser) {
+    return {
+      email: databaseUser.email,
+      firstName: databaseUser.firstName,
+      lastName: databaseUser.lastName,
+      isAdmin: databaseUser.isAdmin,
+    };
+  },
 });
+
+export type Auth = typeof auth;

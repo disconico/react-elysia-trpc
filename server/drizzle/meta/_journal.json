@@ -50,6 +50,13 @@
       "when": 1704446409215,
       "tag": "0006_condemned_betty_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1704471173900,
+      "tag": "0007_sticky_skreet",
+      "breakpoints": true
     }
   ]
 }

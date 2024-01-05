@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, serial, text, timestamp, integer, varchar, bigint } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, integer, varchar, bigint, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const posts = pgTable("posts", {
@@ -42,8 +42,10 @@ export const user = pgTable("auth_user", {
   id: varchar("id", {
     length: 15, // change this when using custom user ids
   }).primaryKey(),
-  name: text("name").notNull(),
+  firstName: text("firstName").notNull(),
+  lastName: text("lastName").notNull(),
   email: text("enail").notNull().unique(),
+  isAdmin: boolean("isAdmin").default(false),
   // other user attributes
 });
 
