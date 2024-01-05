@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, serial, text, timestamp, integer } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, integer, varchar, bigint } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const posts = pgTable("posts", {
@@ -37,3 +37,43 @@ export const commentsRelations = relations(comments, ({ one }) => ({
 
 export const insertCommentSchema = createInsertSchema(comments);
 export const selectCommentSchema = createSelectSchema(comments);
+
+export const user = pgTable("auth_user", {
+  id: varchar("id", {
+    length: 15, // change this when using custom user ids
+  }).primaryKey(),
+  name: text("name").notNull(),
+  email: text("enail").notNull().unique(),
+  // other user attributes
+});
+
+export const session = pgTable("user_session", {
+  id: varchar("id", {
+    length: 128,
+  }).primaryKey(),
+  userId: varchar("user_id", {
+    length: 15,
+  })
+    .notNull()
+    .references(() => user.id),
+  activeExpires: bigint("active_expires", {
+    mode: "number",
+  }).notNull(),
+  idleExpires: bigint("idle_expires", {
+    mode: "number",
+  }).notNull(),
+});
+
+export const key = pgTable("user_key", {
+  id: varchar("id", {
+    length: 255,
+  }).primaryKey(),
+  userId: varchar("user_id", {
+    length: 15,
+  })
+    .notNull()
+    .references(() => user.id),
+  hashedPassword: varchar("hashed_password", {
+    length: 255,
+  }),
+});
