@@ -14,10 +14,8 @@ export const auth = lucia({
   env: (process.env.NODE_ENV as Env) || "DEV",
   getUserAttributes(databaseUser) {
     return {
-      email: databaseUser.email,
-      firstName: databaseUser.firstName,
-      lastName: databaseUser.lastName,
       isAdmin: databaseUser.isAdmin,
+      username: databaseUser.username,
     };
   },
 });
