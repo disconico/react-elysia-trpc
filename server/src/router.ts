@@ -1,8 +1,8 @@
 import { router } from "./trpc";
-import { greetRouter } from "./greet/greet.router";
-import { userRouter } from "./user/user.router";
-import { postRouter } from "./post/post.router";
-import { commentRouter } from "./comment/comment.router";
+import { greetRouter } from "./procedures/greet/greet.router";
+import { userRouter } from "./procedures/user/user.router";
+import { postRouter } from "./procedures/post/post.router";
+import { commentRouter } from "./procedures/comment/comment.router";
 
 export const appRouter = router({
   user: userRouter,

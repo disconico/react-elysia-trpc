@@ -1,6 +1,6 @@
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure } from "../../trpc";
 import { eq } from "drizzle-orm";
-import { comments } from "../db/schema";
+import { comments } from "../../db/schema";
 import { z } from "zod";
 
 export const commentRouter = router({

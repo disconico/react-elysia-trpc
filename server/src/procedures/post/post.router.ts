@@ -1,5 +1,5 @@
-import { router, publicProcedure } from "../trpc";
-import { insertPostSchema, posts } from "../db/schema";
+import { router, publicProcedure } from "../../trpc";
+import { insertPostSchema, posts } from "../../db/schema";
 import { TRPCError } from "@trpc/server";
 
 export const postRouter = router({

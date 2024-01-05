@@ -1,7 +1,7 @@
 import { Env, lucia } from "lucia";
 import { postgres as postgresAdapter } from "@lucia-auth/adapter-postgresql";
 
-import { queryClient } from "./db/db";
+import { queryClient } from "../db/db";
 import { elysia } from "lucia/middleware";
 
 export const auth = lucia({

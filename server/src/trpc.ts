@@ -18,7 +18,6 @@ export const createContext = async (_opts: FetchCreateContextFnOptions): Promise
   // Example: const user = await authenticateUser(opts.req);
 
   const context = {
-    user: "nico",
     db,
   };
 
