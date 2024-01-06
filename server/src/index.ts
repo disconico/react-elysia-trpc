@@ -11,12 +11,7 @@ import { signoutHandler } from "./auth/signout";
 
 const app = new Elysia()
   .use(swagger())
-  .use(
-    cors({
-      origin:
-        process.env.NODE_ENV === "development" ? /http:\/\/localhost:5173/ : /https:\/\/client-react-api\.fly\.dev/,
-    }),
-  )
+  .use(cors())
   .use(helmet())
   .get("/", () => "Hello from Elysia!")
   .post("/auth/signup", signupHanlder)
