@@ -6,6 +6,7 @@ import { helmet } from "elysia-helmet";
 import { appRouter } from "./router";
 import { createContext } from "./trpc";
 import { signupHanlder } from "./auth/signup";
+import { validateSessionHandler } from "./auth/validate";
 
 const app = new Elysia()
   .use(swagger())
@@ -17,8 +18,8 @@ const app = new Elysia()
   )
   .use(helmet())
   .get("/", () => "Hello from Elysia!")
-  .get("/ctx", (ctx) => console.log(ctx))
   .post("/auth/signup", signupHanlder)
+  .get("/auth/validate", validateSessionHandler)
   .use(trpc(appRouter, { createContext, endpoint: "/trpc" }))
   .listen(3000);
 
