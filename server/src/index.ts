@@ -7,6 +7,7 @@ import { appRouter } from "./router";
 import { createContext } from "./trpc";
 import { signupHanlder } from "./auth/signup";
 import { validateSessionHandler } from "./auth/validate";
+import { signoutHandler } from "./auth/signout";
 
 const app = new Elysia()
   .use(swagger())
@@ -20,6 +21,7 @@ const app = new Elysia()
   .get("/", () => "Hello from Elysia!")
   .post("/auth/signup", signupHanlder)
   .get("/auth/validate", validateSessionHandler)
+  .post("/auth/signout", signoutHandler)
   .use(trpc(appRouter, { createContext, endpoint: "/trpc" }))
   .listen(3000);
 

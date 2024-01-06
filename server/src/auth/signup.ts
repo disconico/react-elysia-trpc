@@ -42,6 +42,7 @@ export async function signupHanlder(ctx: Context) {
     ctx.set.status = 302;
     // redirect to profile page
     ctx.set.headers["Location"] = "/";
+    return;
   } catch (err) {
     if (err instanceof LuciaError && err.message === "AUTH_DUPLICATE_KEY_ID") {
       ctx.set.status = 400;
