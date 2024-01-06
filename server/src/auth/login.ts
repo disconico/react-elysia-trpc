@@ -27,7 +27,6 @@ export async function loginHandler(ctx: Context) {
     ctx.set.headers["Location"] = "/";
     return;
   } catch (err) {
-    // check for unique constraint error in user table
     if (
       err instanceof LuciaError &&
       (err.message === "AUTH_INVALID_KEY_ID" || err.message === "AUTH_INVALID_PASSWORD")

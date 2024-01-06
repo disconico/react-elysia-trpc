@@ -7,6 +7,7 @@ export async function signoutHandler(ctx: Context) {
 
   if (!session) {
     ctx.set.status = "Unauthorized";
+    return { error: "Unauthorized" };
     return;
   }
 
