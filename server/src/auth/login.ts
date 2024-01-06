@@ -3,7 +3,7 @@ import { credentialsSchema } from "./auth.schema";
 import { auth } from "./lucia";
 import { LuciaError } from "lucia";
 
-export async function signupHanlder(ctx: Context) {
+export async function loginHandler(ctx: Context) {
   const result = credentialsSchema.safeParse(ctx.body);
 
   if (!result.success) {
@@ -15,33 +15,25 @@ export async function signupHanlder(ctx: Context) {
   const { username, password } = result.data;
 
   try {
-    const user = await auth.createUser({
-      key: {
-        providerId: "username", // auth method
-        providerUserId: username.toLowerCase(), // unique id when using "username" auth method
-        password, // hashed by Lucia
-      },
-      attributes: {
-        username,
-        is_admin: false,
-      },
-    });
-
+    const key = await auth.useKey("username", username.toLowerCase(), password);
     const session = await auth.createSession({
-      userId: user.userId,
+      userId: key.userId,
       attributes: {},
     });
-
     const authRequest = auth.handleRequest(ctx);
     authRequest.setSession(session);
+
     ctx.set.status = 302;
-    // redirect to profile page
     ctx.set.headers["Location"] = "/";
     return;
   } catch (err) {
-    if (err instanceof LuciaError && err.message === "AUTH_DUPLICATE_KEY_ID") {
+    // check for unique constraint error in user table
+    if (
+      err instanceof LuciaError &&
+      (err.message === "AUTH_INVALID_KEY_ID" || err.message === "AUTH_INVALID_PASSWORD")
+    ) {
       ctx.set.status = 400;
-      return { error: "Username already taken" };
+      return { error: "Incorrect username or password" };
     }
 
     ctx.set.status = 500;

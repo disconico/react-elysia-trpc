@@ -8,6 +8,7 @@ import { createContext } from "./trpc";
 import { signupHanlder } from "./auth/signup";
 import { validateSessionHandler } from "./auth/validate";
 import { signoutHandler } from "./auth/signout";
+import { loginHandler } from "./auth/login";
 
 const app = new Elysia()
   .use(swagger())
@@ -15,6 +16,7 @@ const app = new Elysia()
   .use(helmet())
   .get("/", () => "Hello from Elysia!")
   .post("/auth/signup", signupHanlder)
+  .post("/auth/login", loginHandler)
   .get("/auth/validate", validateSessionHandler)
   .post("/auth/signout", signoutHandler)
   .use(trpc(appRouter, { createContext, endpoint: "/trpc" }))
