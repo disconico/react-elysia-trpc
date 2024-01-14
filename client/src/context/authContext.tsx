@@ -38,7 +38,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const validateSession = async () => {
-      console.log(process.env.NODE_ENV === "development", process.env.NODE_ENV === "production");
       try {
         setIsLoading(true);
         const response = await fetch(`${SERVER_URI}/auth/validate`, {

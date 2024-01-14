@@ -39,6 +39,7 @@ export async function loginHandler(ctx: Context) {
     const authRequest = auth.handleRequest(ctx);
     authRequest.setSession(session);
     const user = session.user;
+    console.log("USER", user)
     return { user };
   } catch (err) {
     if (err instanceof LuciaError && err.message === "AUTH_INVALID_KEY_ID") {
@@ -49,6 +50,7 @@ export async function loginHandler(ctx: Context) {
       return { error: "Incorrect password" };
     }
     ctx.set.status = 500;
+    console.log("Server error during login");
     return { error: "An unknown error occurred" };
   }
 }
