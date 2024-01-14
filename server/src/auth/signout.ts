@@ -8,13 +8,9 @@ export async function signoutHandler(ctx: Context) {
   if (!session) {
     ctx.set.status = "Unauthorized";
     return { error: "Unauthorized" };
-    return;
   }
 
   await auth.invalidateSession(session.sessionId);
   authRequest.setSession(null);
-
-  ctx.set.status = 302;
-  ctx.set.headers["Location"] = "/login";
   return;
 }

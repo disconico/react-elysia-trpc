@@ -14,6 +14,7 @@
     "@elysiajs/cors": "^0.8.0",
     "@elysiajs/swagger": "^0.8.0",
     "@elysiajs/trpc": "^0.8.0",
+    "@grotto/logysia": "^0.1.1",
     "@lucia-auth/adapter-postgresql": "^2.0.2",
     "@trpc/server": "^10.45.0",
     "dotenv": "^16.3.1",

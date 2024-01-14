@@ -5,7 +5,7 @@ import { users } from "./db";
 import { User } from "./types";
 
 export const createUserSchema = z.object({
-  name: z.string().min(1),
+  name: z.string({ errorMap: () => ({ message: "Name must be at least 3 characters." }) }).min(3),
 });
 
 export const userRouter = router({

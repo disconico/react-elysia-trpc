@@ -1,70 +1,26 @@
-import * as React from "react";
-
-import { api } from "./trpc";
+import { useContext } from "react";
+import { Route, Routes } from "react-router-dom";
+import { AuthContext } from "./context/authContext";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import Header from "./components/Header";
+import SignupPage from "./pages/SignupPage";
 
 const App = () => {
-  const [name, setName] = React.useState("");
+  const { isLoading: isUserLoading } = useContext(AuthContext);
 
-  const { data, isLoading, refetch } = api.user.getUsers.useQuery();
-
-  const { data: post } = api.post.getFirstPost.useQuery();
-  if (post) console.log(post);
-
-  const { data: comments } = api.comment.getCommentsFromAPost.useQuery(
-    { id: post?.id as number},
-    {
-      enabled: !!post,
-    },
-  );
-
-  const mutation = api.user.createUser.useMutation({
-    onSuccess: () => refetch(),
-  });
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    setName("");
-    mutation.mutate({ name });
-    event.preventDefault();
-  };
-
-  if (isLoading) return <span>Loading ...</span>;
+  if (isUserLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div>
-      <ul>
-        {(data ?? []).map((user) => (
-          <li key={user.id}>
-            {user.name} - {user.id}
-          </li>
-        ))}
-      </ul>
-
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name:</label>
-        <input id="name" type="text" value={name} onChange={handleChange} />
-
-        <button type="submit">Create</button>
-      </form>
-      {post && (
-        <ul>
-          <li key={post.id}>
-            {post.author} - {post.message} - {post.createdAt.toLocaleDateString()}
-          </li>
-        </ul>
-      )}
-      {comments && (
-        <ul>
-          {comments.map((com) => (
-            <li key={com.id}>
-              {com.id} - {com.message} - {com.createdAt.toLocaleDateString()}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="app">
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/signup" element={<SignupPage />}></Route>
+      </Routes>
     </div>
   );
 };

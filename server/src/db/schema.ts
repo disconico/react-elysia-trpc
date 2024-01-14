@@ -42,8 +42,9 @@ export const user = pgTable("auth_user", {
   id: varchar("id", {
     length: 15, // change this when using custom user ids
   }).primaryKey(),
-  username: text("username"),
-  isAdmin: boolean("is_admin").default(false),
+  username: text("username").notNull(),
+  isAdmin: boolean("is_admin").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
   // other user attributes
 });
 

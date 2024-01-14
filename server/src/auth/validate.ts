@@ -7,7 +7,7 @@ export async function validateSessionHandler(ctx: Context) {
 
   if (session) {
     const user = session.user;
-    return user;
+    return { user };
   }
-  return null;
+  return { user: null };
 }
