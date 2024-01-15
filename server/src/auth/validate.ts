@@ -2,7 +2,6 @@ import { Context } from "elysia";
 import { auth } from "./lucia";
 
 export async function validateSessionHandler(ctx: Context) {
-  console.log("ctx", ctx.request);
   const authRequest = auth.handleRequest(ctx);
   const session = await authRequest.validate();
 
