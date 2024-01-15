@@ -14,12 +14,7 @@ import { logger } from "@grotto/logysia";
 const app = new Elysia()
   .use(swagger())
   .use(helmet())
-  .use(
-    cors({
-      credentials: true,
-      origin: /localhost.*|https:\/\/react-elysia-trpc.vercel.app|https:\/\/client-react-api.fly.dev/,
-    }),
-  )
+  .use(cors())
   .use(
     logger({
       logIP: true,
