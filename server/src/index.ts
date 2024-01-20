@@ -1,6 +1,5 @@
 import { Elysia } from "elysia";
 import { trpc } from "@elysiajs/trpc";
-import { swagger } from "@elysiajs/swagger";
 import { cors } from "@elysiajs/cors";
 import { helmet } from "elysia-helmet";
 import { appRouter } from "./router";
@@ -12,7 +11,6 @@ import { loginHandler } from "./auth/login";
 import { logger } from "@grotto/logysia";
 
 const app = new Elysia()
-  .use(swagger())
   .use(helmet())
   .use(cors())
   .use(

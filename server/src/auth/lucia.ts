@@ -6,6 +6,9 @@ import { elysia } from "lucia/middleware";
 
 export const auth = lucia({
   middleware: elysia(),
+  // csrfProtection: {
+  //   allowedSubDomains: ["http://localhost:5174", "http://localhost:5173", "https://client-react-api.fly.dev"],
+  // },
   adapter: postgresAdapter(queryClient, {
     user: "auth_user",
     key: "user_key",
